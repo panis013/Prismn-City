@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameUnit : MonoBehaviour2 {
+	public enum DamegeType
+	{
+		normal,
+		light
+	}
 	public UnitType unitType;
 	public float health;
 	public float Armor = 0f;// 敌人护甲 减免受到的伤害（1/1+0.08*护甲）
@@ -16,8 +21,21 @@ public class GameUnit : MonoBehaviour2 {
 
 
 	//Functions
-	public void getDamege(float dmg){
+	public void getDamege(float dmg,DamegeType dt,Vector3 fromPos,GameUnit from){
 		health -= dmg;
+		if (unitType != UnitType.Player) {
+			AI ai = gameObject.GetComponent<AI> ();
+			if (ai!= null) {
+				switch (dt) {
+				case DamegeType.normal:
+					ai.OnHit (dmg, fromPos, from);
+					break;
+				case DamegeType.light:
+					ai.OnLightHit (dmg, fromPos, from);
+					break;
+				}
+			}
+		}
 		if (health < 0f) {
 			die ();
 		}

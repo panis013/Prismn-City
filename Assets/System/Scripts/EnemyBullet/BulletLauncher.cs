@@ -63,7 +63,7 @@ public class BulletLauncher : TopScript
         //给弹幕附加属性
      if (BP.laucherType == BulletData.LaucherType.ABullet)
         {
-            EnemyBullet temp = dmk.GetComponent<EnemyBullet>();
+            Bullet temp = dmk.GetComponent<Bullet>();
             temp.isRemoveable = BP.isRemoveable;
             temp.IsRemovedOut = BP.IsRemovedOut;
             temp.isAwake = BP.isAwake;
@@ -82,7 +82,7 @@ public class BulletLauncher : TopScript
         {
             foreach(GameObject Dmk in dmks)
             {
-                EnemyBullet temp = Dmk.GetComponent<EnemyBullet>();
+                Bullet temp = Dmk.GetComponent<Bullet>();
                 temp.isRemoveable = BP.isRemoveable;
                 temp.IsRemovedOut = BP.IsRemovedOut;
                 temp.isAwake = BP.isAwake;
@@ -113,6 +113,7 @@ public class BulletLauncher : TopScript
         Quaternion rot = Angle2R(rotation);
         BulletClone = (GameObject)Instantiate(Bullet, pos, rot);
         BulletClone.GetComponent<SpriteRenderer>().sprite = BulletData.instance.GetSprite(type);
+		BulletClone.GetComponent<Bullet> ().setOwner (gameObject);
         return BulletClone;
 
     }
@@ -120,8 +121,8 @@ public class BulletLauncher : TopScript
     {
         Vector3 v = GameObject.FindGameObjectWithTag("Player").transform.position - dmk.transform.position;
         v.Normalize();
-        float m = dmk.GetComponent<EnemyBullet>().velocity.magnitude;
-        dmk.GetComponent<EnemyBullet>().velocity = v * m;
+        float m = dmk.GetComponent<Bullet>().velocity.magnitude;
+        dmk.GetComponent<Bullet>().velocity = v * m;
     }
 
     /************************内置发射函数****************************/
@@ -129,7 +130,7 @@ public class BulletLauncher : TopScript
     {
             
         GameObject Dmk = Create(type, rotation, position);
-        Dmk.GetComponent<EnemyBullet>().velocity = velocity;
+        Dmk.GetComponent<Bullet>().velocity = velocity;
         return Dmk;
     }
     public GameObject[] LaunchABarrier(BulletData.BulletType type, float rotation, Vector3 offset, float speed, int amount, float midAngle, float spreadAngle, float distance)

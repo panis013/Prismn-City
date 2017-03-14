@@ -72,7 +72,7 @@ public class Actions : ScriptableObject {
 		GameUnit enemy = OwnerAI.gameObject.GetComponent<GameUnit>();      
 		float armor = enemy.Armor;
         float damage = OwnerAI.LastHitPower * (1 - (armor) * 0.08f / (1 + 0.08f * (armor)));
-		enemy.getDamege (damage);
+		//enemy.getDamege (damage);
     }
     
     

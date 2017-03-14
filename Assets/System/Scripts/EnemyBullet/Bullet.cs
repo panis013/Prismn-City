@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : TopScript {
+public class Bullet : TopScript {
+	[HideInInspector]
+	public GameUnit owner;
+	public float Power = 1f;//analyze.
+	public GameUnit.DamegeType damegeType;
+
+	public BulletData.BulletType Type;
     public bool isRemoveable = true;//效果消弹
     public bool IsRemovedOut = true;//出屏消弹
     public bool isAwake = true;
@@ -16,7 +22,6 @@ public class EnemyBullet : TopScript {
     public float Lifetime=3f;
     public float JudgeSize = 0.04f;
     public float alpha = 1f;
-    public BulletData.BulletType Type;
     public int[] Counter;//可用的计数器
     float t;
     // Use this for initialization
@@ -142,13 +147,24 @@ public class EnemyBullet : TopScript {
     {
         if (isAwake)
         {
-			GameUnit Player = collider.gameObject.GetComponent<GameUnit>();
-            if (collider.tag == "Player")
-            {
-				Player.getDamege (1f);
-                Destroy(this.gameObject);
-            }
-
+			GameUnit aim = collider.gameObject.GetComponent<GameUnit>();
+			GameUnit self = gameObject.GetComponent<GameUnit> ();
+			if (owner == null || aim.unitType != self.unitType) {
+				aim.getDamege (Power, damegeType, gameObject.transform.position, owner);
+			}
+			Die ();
         }
     }
+	void Die(){
+		Destroy(this.gameObject);
+	}
+	public void setOwner(GameObject go){
+		GameUnit gu = go.GetComponent<GameUnit> ();
+		if (gu != null) {
+			owner = gu;
+		}
+	}
+	public void setOwner(GameUnit gu){
+		owner = gu;
+	}
 }
