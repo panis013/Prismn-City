@@ -23,9 +23,7 @@ public class AI : MonoBehaviour2 {
     public float DistanceBorder = 500f;
     private ArrayList runtimeList = new ArrayList();
     float[] t;
-    public float LastHitPower=0f;
-	public Vector3 LastHitFromPos;
-	public GameUnit LastHitFrom;
+    
 
     private void Start()
     {
@@ -35,7 +33,7 @@ public class AI : MonoBehaviour2 {
         for (int i=0; i < runtimeList.Count; i++)
         {
             AIAction temp = (AIAction)runtimeList[i];
-            if (temp.action.funtionType == Actions.ActionType.attack)
+            if (temp.action.functionType == Actions.ActionType.attack)
             {
                 t[i] = 0f;
             }
@@ -48,7 +46,7 @@ public class AI : MonoBehaviour2 {
         {
             
             AIAction temp = (AIAction)this.runtimeList[i];
-            if (temp.action.funtionType == Actions.ActionType.attack)
+            if (temp.action.functionType == Actions.ActionType.attack)
             {
                 t[i] += Time.fixedDeltaTime;
                 if (temp.trigger == TriggerType.distanceIn)
@@ -83,14 +81,10 @@ public class AI : MonoBehaviour2 {
         }
 
     }
-	public void OnHit(float power,Vector3 fromPos,GameUnit from)
+	public void OnHit()
     {   
         for(int i = 0; i < runtimeList.Count; i++)
         {
-            
-            LastHitPower = power;
-			LastHitFrom = from;
-			LastHitFromPos = fromPos;
             AIAction temp = (AIAction)runtimeList[i];
             if (temp.trigger == TriggerType.onhit)
             {
@@ -98,12 +92,9 @@ public class AI : MonoBehaviour2 {
             }
         }
     }
-	public void OnLightHit(float power,Vector3 fromPos,GameUnit from){
+	public void OnLightHit(){
 		for(int i = 0; i < runtimeList.Count; i++)
 		{
-			LastHitPower = power;
-			LastHitFrom = from;
-			LastHitFromPos = fromPos;
 			AIAction temp = (AIAction)runtimeList[i];
 			if (temp.trigger == TriggerType.onLighthit)
 			{

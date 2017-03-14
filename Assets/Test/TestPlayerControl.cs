@@ -8,9 +8,6 @@ public class TestPlayerControl : MonoBehaviour {
 	public string Name;
 	public float Speed = 800f;
 	public Map testmap;
-	void Start () {
-		gameObject.AddComponent<GamePosition> ().Init (Settings.Layers.Second,0);
-	}
 	void FixedUpdate () {
 		Move ();
 	}
