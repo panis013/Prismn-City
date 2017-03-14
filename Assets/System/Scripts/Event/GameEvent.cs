@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameEvent : ScriptableObject {
 	public enum GameEventType
 	{
-		ApplyDamege,
+		ApplyDamage,
 		CreateUnit,
 		Wait,
 		TriggerToTarget,
@@ -23,10 +23,10 @@ public class GameEvent : ScriptableObject {
 	public bool running = false;
 	public ArrayList targetPool;
 	[System.Serializable]
-	public struct ApplyDamegeP{
+	public struct ApplyDamageP{
 		public float damege;
 	}
-	public ApplyDamegeP ApplyDamegeParameter;
+	public ApplyDamageP ApplyDamageParameter;
 	[System.Serializable]
 	public struct WaitP
 	{
@@ -41,7 +41,7 @@ public class GameEvent : ScriptableObject {
 	public bool run(){
 		running = true;
 		switch (functionType) {
-		case GameEventType.ApplyDamege:
+		case GameEventType.ApplyDamage:
 			GameObject go = (GameObject)getFirstTarget ();
 			if (go != null) {
 				GameUnit gu = go.GetComponent<GameUnit> ();
