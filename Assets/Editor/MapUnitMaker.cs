@@ -6,9 +6,11 @@ public class MapUnitMaker : Editor2 {
 	MapUnit mu;
 	SerializedProperty UnitSprite;
 	SerializedProperty Height;
+	SerializedProperty KillBullet;
 	void OnEnable(){
 		UnitSprite = serializedObject.FindProperty ("UnitSprite");
 		Height = serializedObject.FindProperty ("height");
+		KillBullet = serializedObject.FindProperty ("KillBullet");
 		mu = target as MapUnit;
 	}
 	public override void OnInspectorGUI(){
@@ -21,6 +23,7 @@ public class MapUnitMaker : Editor2 {
 		EditorGUILayout.LabelField ("地图块");
 		EditorGUILayout.PropertyField (UnitSprite);
 		EditorGUILayout.PropertyField (Height);
+		EditorGUILayout.PropertyField (KillBullet);
 		serializedObject.ApplyModifiedProperties();
 		g.gameObject.GetComponent<SpriteRenderer> ().sprite = (Sprite)UnitSprite.objectReferenceValue;
 		if (mu.coordinate != null) {

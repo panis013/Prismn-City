@@ -9,6 +9,7 @@ public class GameUnit : MonoBehaviour2 {
 		light
 	}
 	public UnitType unitType;
+	public bool BulletTakable = true;
 	public float health;
 	public float Armor = 0f;// 敌人护甲 减免受到的伤害（1/1+0.08*护甲）
 	//单位是Rigidbody2D物体，通过相关函数控制运动
