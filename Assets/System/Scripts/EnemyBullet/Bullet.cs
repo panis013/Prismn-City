@@ -154,11 +154,11 @@ public class Bullet : TopScript {
             {
                 self = owner.gameObject.GetComponent<GameUnit>();
             }
-            if(owner == null || aim != null && (aim.unitType != self.unitType && aim.unitType != GameUnit.UnitType.Bullet))
+			if(owner == null || aim != null && (aim.unitType != self.unitType && aim.unitType != GameUnit.UnitType.Bullet)&&aim.BulletTakable==true)
             {
                 aim.getDamage(Power, damageType, gameObject.transform.position, owner);
                 Die();
-            }else if (aimWall != null && aimWall.layer == Settings.Layers.Second){
+			}else if (aimWall != null && aimWall.layer == Settings.Layers.Second&&aimWall.KillBullet==true){
                 Die();
             }
         }

@@ -10,6 +10,8 @@ public class MapUnit : MonoBehaviour2 {
 	public Map parent;
 	public Coordinate coordinate;
 	public Settings.Layers layer;
+	[TooltipAttribute("如果该地图块在第二层,则可以关闭阻挡子弹")]
+	public bool KillBullet = true;
 	public void init(Map map,Settings.Layers layer,int x,int y){
 		parent = map;
 		coordinate = new Coordinate (x, y);

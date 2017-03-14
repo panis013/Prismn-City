@@ -6,40 +6,22 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 { 
 	public static Map CurrentMap;
+	public static GameObject CurrentPlayer{ get { return GameObject.FindGameObjectWithTag ("Player"); } }
+	public static Vector3 MousePosition {
+		get {
+			Vector3 mousePositionOnScreen = Input.mousePosition;   
+			mousePositionOnScreen.z = 0f;
+			Vector3 mousePositionInWorld = Camera.main.ScreenToWorldPoint (mousePositionOnScreen);
+			mousePositionInWorld.z = 0f;
+			return mousePositionInWorld;
+		}
+	}
 	public BulletData bd; 
 	public int CurrentGun = 1;
 	private int Prisms = 7;
-	public void GunSwitchUp()
-	{
-		if (CurrentGun == Prisms)
-		{
-			CurrentGun = 1;
-		}
-		else if (CurrentGun< Prisms)
-		{
-			CurrentGun++;
-		}
-
-	}
-	public void GunSwitchDown()
-	{
-		if (CurrentGun == 1)
-		{
-			CurrentGun = Prisms;
-		}
-		else if (CurrentGun > 1)
-		{
-			CurrentGun--;
-		}
-
-	}
-	public void GunSwitchNum(int num)
-	{
-		if (num <= Prisms) CurrentGun = num;
-	}
 	void Start ()
 	{
-		SetResolution ();
+		
 	}
 
 	void Update ()
@@ -48,17 +30,6 @@ public class GameController : MonoBehaviour
 	}
 
 	///设置
-	void SetResolution ()
-	{
-		Resolution[] reslution = Screen.resolutions; 
-		int standard_width;
-		int standard_height;
-		/*
-		standard_width = reslution[reslution.Length - 1].width;  
-		standard_height = reslution[reslution.Length - 1].height;
-		*/
-		standard_width = 1600;
-		standard_height = 1100;
-		Screen.SetResolution (Convert.ToInt32 (standard_width), Convert.ToInt32 (standard_height), false); 
-	}
+
+	///工具
 }
