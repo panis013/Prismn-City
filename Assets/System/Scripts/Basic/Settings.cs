@@ -5,6 +5,8 @@ using UnityEngine;
 public class Settings : MonoBehaviour2 {
 	public static Vector3 MapUnitStandardScale = new Vector3(100f,100f,100f);
 	public static Vector3 MapUnitStandardPosition = new Vector3(0f,0f,10f);
+	public static Layers GameUnitDefaultLayer = Layers.Second;
+	public static float ArmorDefRate = 0.08f;
 	public static float FirstLayerZ = 100f;
 	public static float ThirdLayerZ =-100f;
 	public static int EditorUnitShowMaxAmount = 4;
@@ -25,7 +27,10 @@ public class Settings : MonoBehaviour2 {
 		public static string MapUnitPath = "Assets/MapPrefabs/MapUnits";
 		public static string MapPath = "Assets/Data/Map";
 	}
-
+	public static float getFixedDmg(float dmg,float Armor){
+		dmg *= (1 - (Armor) * ArmorDefRate / (1 + ArmorDefRate * (Armor)));
+		return dmg;
+	}
 	public static Vector3 GetRenderPosition(Vector3 originPosition,Settings.Layers layer,int height){
 		float z;
 		Map currentmap = GameController.CurrentMap;

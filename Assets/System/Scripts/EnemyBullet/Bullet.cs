@@ -6,7 +6,7 @@ public class Bullet : TopScript {
 	[HideInInspector]
 	public GameUnit owner;
 	public float Power = 1f;//analyze.
-	public GameUnit.DamegeType damegeType;
+	public GameUnit.DamegeType damageType;
 
 	public BulletData.BulletType Type;
     public bool isRemoveable = true;//效果消弹
@@ -150,7 +150,7 @@ public class Bullet : TopScript {
 			GameUnit aim = collider.gameObject.GetComponent<GameUnit>();
 			GameUnit self = gameObject.GetComponent<GameUnit> ();
 			if (owner == null || aim.unitType != self.unitType) {
-				aim.getDamege (Power, damegeType, gameObject.transform.position, owner);
+				aim.getDamage (Power, damageType, gameObject.transform.position, owner);
 			}
 			Die ();
         }

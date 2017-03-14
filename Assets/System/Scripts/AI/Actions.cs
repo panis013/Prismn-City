@@ -13,34 +13,29 @@ public class Actions : ScriptableObject {
     {
         idle,
         walk,
-        damaged,
         run,
+		hitback,
         attack,
         blasting_off
     }
-    public ActionType funtionType;
+    public ActionType functionType;
     private AI OwnerAI;
     //判断条件  
     public bool run()
     {
         
-        if (funtionType == ActionType.idle)
+        if (functionType == ActionType.idle)
         {
             Move(0);
         }
-        if (funtionType == ActionType.walk)
-        {
-            Move(1);
-        }
-        if (funtionType == ActionType.damaged)
-        {
-            Damaged();
-        }
-        else if (funtionType == ActionType.attack)
-        {
-            Attack(BPs[0]);
-            Move(0);
-        }
+		if (functionType == ActionType.walk) {
+			Move (1);
+		} else if (functionType == ActionType.attack) {
+			Attack (BPs [0]);
+			Move (0);
+		} else if (functionType == ActionType.hitback) {
+			HitBack ();
+		}
         return true;
     }
 
@@ -67,14 +62,9 @@ public class Actions : ScriptableObject {
 			enemy.velocity = SlowMovespeed * TopScript.getPlayerAngleV3(OwnerAI.gameObject.transform.position).normalized;
         }
     }
-    void Damaged()
-    {
-		GameUnit enemy = OwnerAI.gameObject.GetComponent<GameUnit>();      
-		float armor = enemy.Armor;
-        float damage = OwnerAI.LastHitPower * (1 - (armor) * 0.08f / (1 + 0.08f * (armor)));
-		//enemy.getDamege (damage);
-    }
-    
+	void HitBack(){
+
+	}
     
 
 }

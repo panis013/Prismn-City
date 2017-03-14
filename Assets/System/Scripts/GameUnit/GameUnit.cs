@@ -14,24 +14,35 @@ public class GameUnit : MonoBehaviour2 {
 	//单位是Rigidbody2D物体，通过相关函数控制运动
 
 
+	public float LastHitDmg=0f;
+	public Vector3 LastHitFromPos;
+	public GameUnit LastHitFrom;
 
 
+	public int height = 0;
+	void Start(){
+		gameObject.AddComponent<GamePosition> ().Init (Settings.GameUnitDefaultLayer,height);
+	}
 
 
 
 
 	//Functions
-	public void getDamege(float dmg,DamegeType dt,Vector3 fromPos,GameUnit from){
+	public void getDamage(float dmg,DamegeType dt,Vector3 fromPos,GameUnit from){
+		dmg = Settings.getFixedDmg (dmg,Armor);
 		health -= dmg;
+		LastHitDmg = dmg;
+		LastHitFrom = from;
+		LastHitFromPos = fromPos;
 		if (unitType != UnitType.Player) {
 			AI ai = gameObject.GetComponent<AI> ();
 			if (ai!= null) {
 				switch (dt) {
 				case DamegeType.normal:
-					ai.OnHit (dmg, fromPos, from);
+					ai.OnHit ();
 					break;
 				case DamegeType.light:
-					ai.OnLightHit (dmg, fromPos, from);
+					ai.OnLightHit ();
 					break;
 				}
 			}
