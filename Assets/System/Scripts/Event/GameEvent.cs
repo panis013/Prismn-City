@@ -46,7 +46,7 @@ public class GameEvent : ScriptableObject {
 			if (go != null) {
 				GameUnit gu = go.GetComponent<GameUnit> ();
 				if (gu != null) {
-					gu.getDamege (ApplyDamegeParameter.damege);
+					//gu.getDamege (ApplyDamegeParameter.damege);
 				}
 			}
 			getOverred ();

@@ -27,7 +27,7 @@ public class GameEventMaker : Editor2 {
 				EditorGUI.indentLevel++;
 				for (int i = 1; i < childrenCount; i++) {
 					EditorGUILayout.PropertyField (para);
-					para.Next (true);
+					para.Next (false);
 				}
 				EditorGUI.indentLevel--;
 			}

@@ -50,7 +50,7 @@ public class Editor2 : Editor {
 		array.GetArrayElementAtIndex (index).objectReferenceValue = insertObject;
 	}
 	protected void AddElementForArrayE(SerializedProperty array,UnityEngine.Object insertObject){
-		if (array.isArray == false||array.arraySize<=0) {
+		if (array.isArray == false) {
 			Debug.LogError ("非法的参数");
 			return;
 		}
