@@ -41,7 +41,7 @@ public class BulletLauncher : TopScript
 
         if(BP.laucherType == BulletData.LaucherType.Barrier)
         {
-            dmks = LaunchABarrier(BP.bulletType, rotation, BP.offset, speed, amount, midAngle, spreadAngle, distance);
+            dmks = LaunchABarrier(BP.bulletType,BP.offset, speed, amount, midAngle, spreadAngle, distance);
         }
         else if (BP.laucherType == BulletData.LaucherType.Random)
         {
@@ -133,27 +133,28 @@ public class BulletLauncher : TopScript
         Dmk.GetComponent<Bullet>().velocity = velocity;
         return Dmk;
     }
-    public GameObject[] LaunchABarrier(BulletData.BulletType type, float rotation, Vector3 offset, float speed, int amount, float midAngle, float spreadAngle, float distance)
+    public GameObject[] LaunchABarrier(BulletData.BulletType type,Vector3 offset, float speed, int amount, float midAngle, float spreadAngle, float distance)
     {   //数量 发射角度范围（0-360为整圈） 实际发射点距中心的距离 发射一圈
         GameObject[] dmks = new GameObject[amount];
-        float minAngle = midAngle - (spreadAngle / 2);
-        float maxAngle = midAngle + (spreadAngle / 2);
         float intervalAngle;//计算每颗之间的夹角
-        if ((maxAngle - minAngle) % 360f == 0f)
+        if (spreadAngle % 360f == 0f)
         {
-            intervalAngle = (maxAngle - minAngle) / (amount);
+            intervalAngle = spreadAngle / (amount);
+            midAngle += 180f;
         }
         else
         {
             if (amount != 1 && amount != 0)
             {
-                intervalAngle = (maxAngle - minAngle) / (amount - 1);
+                intervalAngle = spreadAngle / (amount - 1);
             }
             else
             {
                 intervalAngle = 360f;
             }
         }
+        float minAngle = midAngle - (spreadAngle / 2);
+        float maxAngle = midAngle + (spreadAngle / 2);
         Vector3 direction1=Vector3.zero;
         if (amount != 1 && amount != 0)
             direction1 = Angle2V(minAngle);
