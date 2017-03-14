@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameUnit : MonoBehaviour2 {
 	public UnitType unitType;
 	public float health;
-
+	public float Armor = 0f;// 敌人护甲 减免受到的伤害（1/1+0.08*护甲）
+	//单位是Rigidbody2D物体，通过相关函数控制运动
 
 
 
@@ -24,7 +25,7 @@ public class GameUnit : MonoBehaviour2 {
 	//inside Actions
 	public void die(){
 		//die
-		Destroy(gameObject,1f);
+		Destroy(gameObject,0.1f);
 	}
 
 
