@@ -148,11 +148,19 @@ public class Bullet : TopScript {
         if (isAwake)
         {
 			GameUnit aim = collider.gameObject.GetComponent<GameUnit>();
-			GameUnit self = gameObject.GetComponent<GameUnit> ();
-			if (owner == null || aim.unitType != self.unitType) {
-				aim.getDamage (Power, damageType, gameObject.transform.position, owner);
-			}
-			Die ();
+            MapUnit aimWall = collider.gameObject.GetComponent<MapUnit>();
+            GameUnit self = null;
+            if (owner != null)
+            {
+                self = owner.gameObject.GetComponent<GameUnit>();
+            }
+            if(owner == null || aim != null && (aim.unitType != self.unitType && aim.unitType != GameUnit.UnitType.Bullet))
+            {
+                aim.getDamage(Power, damageType, gameObject.transform.position, owner);
+                Die();
+            }else if (aimWall != null && aimWall.layer == Settings.Layers.Second){
+                Die();
+            }
         }
     }
 	void Die(){
